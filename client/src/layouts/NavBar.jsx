@@ -21,21 +21,18 @@ import {
 
 // eslint-disable-next-line react/prop-types
 const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
-  const [state, setState] = useState({
-    left: false,
-  });
+  const [state, setState] = useState({ left: false });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
     setState((prevState) => ({ ...prevState, [anchor]: open }));
   };
 
-  const listItems = [{ text: "Hem", icon: <HomeIcon />, to: "/" }];
+  const listItems = [
+    { text: "Hem", icon: <HomeIcon />, to: "/" }
+  ];
 
   const renderListItem = ({ text, icon, to }) => (
     <ListItem key={text} disablePadding>
@@ -81,11 +78,7 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
           </Drawer>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton color="inherit" onClick={toggleTheme}>
-            {currentTheme === "dark" ? (
-              <Brightness7Icon />
-            ) : (
-              <Brightness4Icon />
-            )}
+            {currentTheme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Toolbar>
       </AppBar>
