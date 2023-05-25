@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Box,
@@ -18,22 +18,14 @@ import {
   Brightness4 as Brightness4Icon,
   Brightness7 as Brightness7Icon,
 } from "@mui/icons-material";
-import React from "react";
 
-interface DrawerProps {
-  toggleTheme: () => void;
-  currentTheme: string;
-}
-
-const TemporaryDrawer: React.FC<DrawerProps> = ({
-  toggleTheme,
-  currentTheme,
-}) => {
-  const [state, setState] = useState<{ [key: string]: boolean }>({
+// eslint-disable-next-line react/prop-types
+const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
+  const [state, setState] = useState({
     left: false,
   });
 
-  const toggleDrawer = (anchor: string, open: boolean) => (event: any) => {
+  const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
@@ -43,18 +35,9 @@ const TemporaryDrawer: React.FC<DrawerProps> = ({
     setState((prevState) => ({ ...prevState, [anchor]: open }));
   };
 
-  // Här lägger vi in sidor/länkar som sätter sig i hamburger menyn/drawern
   const listItems = [{ text: "Hem", icon: <HomeIcon />, to: "/" }];
 
-  const renderListItem = ({
-    text,
-    icon,
-    to,
-  }: {
-    text: string;
-    icon: React.ReactNode;
-    to: string;
-  }) => (
+  const renderListItem = ({ text, icon, to }) => (
     <ListItem key={text} disablePadding>
       <ListItemButton sx={{ width: "100%" }} component={NavLink} to={to}>
         <ListItemIcon>{icon}</ListItemIcon>
@@ -63,7 +46,7 @@ const TemporaryDrawer: React.FC<DrawerProps> = ({
     </ListItem>
   );
 
-  const renderList = (anchor: string) => (
+  const renderList = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
