@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -9,6 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
   AppBar,
+  Button,
   IconButton,
   Toolbar,
 } from "@mui/material";
@@ -22,6 +23,7 @@ import {
 // eslint-disable-next-line react/prop-types
 const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
   const [state, setState] = useState({ left: false });
+  const navigate = useNavigate();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -54,6 +56,11 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
     </Box>
   );
 
+    const Logout = async () => {
+        localStorage.setItem('isAuth', 'false');
+        navigate('/login');
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -76,7 +83,11 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
           >
             {renderList("left")}
           </Drawer>
+
           <Box sx={{ flexGrow: 1 }} />
+          <Button size="small" color="inherit" variant="outlined"
+          sx={{ marginRight: "1em", visibility: "visible", color: "inherit" }}
+          onClick={Logout}>Logga ut</Button>
           <IconButton color="inherit" onClick={toggleTheme}>
             {currentTheme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
