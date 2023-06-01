@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+/* import CssBaseline from "@mui/material/CssBaseline"; */
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
@@ -63,7 +63,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider theme={thememode === "light" ? lightTheme : darkTheme}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <NavBar toggleTheme={toggleTheme} currentTheme={thememode} />
       <Container thememode={thememode}>
         <main style={{ marginTop: "64px", marginBottom: "64px" }}>
