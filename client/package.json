@@ -15,11 +15,14 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.2",
     "@mui/styled-engine-sc": "^5.12.0",
+    "@mui/x-date-pickers": "^6.5.0",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
+    "dayjs": "^1.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
-    "styled-components": "^6.0.0-rc.2"
+    "styled-components": "^5.3.10"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
