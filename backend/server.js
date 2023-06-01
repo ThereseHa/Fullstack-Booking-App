@@ -127,6 +127,11 @@ app.post('/login', async (req, res) => {
         } else {
             res.sendStatus(401)
         }
+    } catch (error) {
+        console.error(error)
+        res.sendStatus(500)
+    }
+})
 
 // DELETE-rutt för att ta bort en bokning
 app.delete('/bookings', async (req, res) => {
