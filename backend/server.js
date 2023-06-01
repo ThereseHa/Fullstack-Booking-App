@@ -115,13 +115,29 @@ app.delete('/bookings', async (req, res) => {
         await client.query('DELETE FROM bookings WHERE booking_date = $1', [
             selectedDateTime
         ])
-
         res.sendStatus(200)
     } catch (error) {
         console.error(error)
         res.sendStatus(500)
     }
 })
+
+//Post kontaktformulär 
+app.post("/contact", async (req, res) => {
+  const { message } = req.body;
+  try {
+    await client.query(
+      "INSERT INTO error_report (message) VALUES ($1)",
+      [message]
+    );
+    res.sendStatus(201);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
+
+
 
 app.listen(8800, () => {
     console.log('Server is running')
