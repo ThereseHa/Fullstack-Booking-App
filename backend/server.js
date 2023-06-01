@@ -57,12 +57,12 @@ app.get("/persons", async (req, res) => {
 });
 
 //Persons Post
-app.post("/persons", async (req, res) => {
-  const { first_name, last_name, email, password } = req.body;
+app.post("/contact", async (req, res) => {
+  const { message } = req.body;
   try {
     await client.query(
-      "INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)",
-      [first_name, last_name, email, password]
+      "INSERT INTO error_report (message) VALUES ($1)",
+      [message]
     );
     res.sendStatus(201);
   } catch (err) {
