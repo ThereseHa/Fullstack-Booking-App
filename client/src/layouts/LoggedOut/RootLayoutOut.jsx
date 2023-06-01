@@ -1,8 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import NavBar from "./NavBar";
-import Footer from "./Footer";
+import NavBar from "./NavBarOut";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
@@ -70,7 +69,6 @@ export default function RootLayout() {
           <Outlet />
         </main>
       </Container>
-      <Footer />
     </ThemeProvider>
   );
 }

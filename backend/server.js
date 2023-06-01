@@ -1,10 +1,12 @@
 import { config } from 'dotenv'
 import pkg from 'pg'
+
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 
 const { Client } = pkg
+
 const app = express()
 
 // Dotenv
@@ -12,7 +14,9 @@ config()
 
 // Middlewares
 app.use(bodyParser.json())
+
 app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(cors())
 app.use(express.json())
 app.use((request, response, next) => {
@@ -106,6 +110,24 @@ app.get('/bookings', async (req, res) => {
     }
 })
 
+// Login POST
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body
+
+    try {
+        // Query the database to check if email and password match
+        const result = await client.query(
+            'SELECT * FROM users WHERE email = $1 AND password = $2',
+            [email, password]
+        )
+
+        if (result.rows.length > 0) {
+            const userId = result.rows[0].user_id
+            res.status(200).json({ userId })
+        } else {
+            res.sendStatus(401)
+        }
+
 // DELETE-rutt för att ta bort en bokning
 app.delete('/bookings', async (req, res) => {
     const { dateTime } = req.body
@@ -116,6 +138,29 @@ app.delete('/bookings', async (req, res) => {
             selectedDateTime
         ])
         res.sendStatus(200)
+    } catch (error) {
+        console.error(error)
+        res.sendStatus(500)
+    }
+})
+
+// Registrera POST
+app.post('/register', async (req, res) => {
+    const { FirstName, LastName, email, password } = req.body
+
+    //Check if inputs are empty
+    if (!FirstName || !LastName || !email || !password) {
+        return res.sendStatus(400) // Bad Request
+    }
+
+    const values = [FirstName, LastName, email, password]
+
+    try {
+        await client.query(
+            'INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)',
+            values
+        )
+        res.status(201).send('Konto skapad')
     } catch (error) {
         console.error(error)
         res.sendStatus(500)
@@ -136,8 +181,6 @@ app.post("/contact", async (req, res) => {
     res.sendStatus(500);
   }
 });
-
-
 
 app.listen(8800, () => {
     console.log('Server is running')

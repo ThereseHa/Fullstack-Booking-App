@@ -2,24 +2,48 @@ import {
   createBrowserRouter,
   Route,
   createRoutesFromElements,
-  RouterProvider,
+  RouterProvider
 } from "react-router-dom";
 
 // Pages
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import InformationPage from "./pages/InformationPage";
 
 // Layouts
 import RootLayout from "./layouts/RootLayout";
 
+//Layout logged out
+import RootLayoutOut from "./layouts/LoggedOut/RootLayoutOut";
+
+//Component
+import ProtectedRoute from "./components/ProtectedRoute";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<Home />} />
-      <Route path="/information" element={<InformationPage />}/>
-      <Route path="*" element={<NotFound />} />
-    </Route>
+        <>
+            <Route path="/" element={<RootLayout />}>
+
+                <Route exact path='/' element={<ProtectedRoute/>}>
+                    {/* Protected routes */}
+                    <Route exact path='/' element={<Home/>}/>
+                     <Route path="/information" element={<InformationPage />}/>
+                
+                    {/* Protected ends here */}
+                </Route>
+
+            </Route>
+
+            <Route path="/" element={<RootLayoutOut />}>
+
+                <Route exact path='/login' element={<Login/>}/>
+                <Route exact path='/register' element={<Register />}/>
+                <Route path="*" element={<NotFound />} />
+
+            </Route>
+        </>
   )
 );
 

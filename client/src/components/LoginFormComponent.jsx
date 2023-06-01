@@ -1,6 +1,59 @@
 import { TextField, Stack, Button, Box, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate, Link } from "react-router-dom";
+
 function LoginFormComponent(){
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    //login
+    const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8800/login', { email, password });
+
+      if (response.status === 200) {
+
+        //Gets user ID from response data
+        const userIdRes = response.data.userId;
+        //Saves it in localStorage
+         localStorage.setItem('userId', userIdRes)
+
+        //Get the stored user id from localStorage
+        //  localStorage.getItem('userId')
+        const userID = localStorage.getItem('userId')
+        console.log(userID)
+
+        // Login successful, navigate to home page
+        localStorage.setItem('isAuth', 'true');
+        console.log('logged in')
+        navigate('/');
+      } else {
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+/*
+  const handleLogin = async (email, password) => {
+  try {
+    // Send a POST request to the login endpoint
+    const response = await axios.post('/api/login', { email, password });
+
+    // Retrieve the user ID from the response data
+    const userId = response.data.userId;
+
+    // Do something with the user ID, such as storing it in state or localStorage
+    // ...
+  } catch (error) {
+    // Handle any login errors
+    // ...
+  }
+}; */
+
     return (
         <>
         <form>
@@ -19,11 +72,12 @@ function LoginFormComponent(){
           <Stack>
             <TextField
               size="small"
-              x={{ backgroundColor: "white" }}
               id="outlined-basic1"
-              label="Epost"
+              label="Email"
               variant="outlined"
               type="email"
+              value={email}
+            onChange={(e) => setEmail(e.target.value)}
               name="email"
             />
             <TextField
@@ -34,14 +88,15 @@ function LoginFormComponent(){
               variant="outlined"
               type="password"
               name="password"
+            value={password}
+        onChange={(e) => setPassword(e.target.value)}
             />
             <Typography sx={{ marginTop: "1em" }}>
-              Skapa konto
+               <Link to="/register">Registrera konto</Link>
             </Typography>
             <Button
               sx={{ marginTop: "2em", marginLeft: "3em", marginRight: "3em" }}
-              variant="contained"
-            >
+              variant="contained" onClick={handleLogin}>
               Logga in
             </Button>
           </Stack>
