@@ -16,6 +16,7 @@ import {
 import {
   Menu as MenuIcon,
   Home as HomeIcon,
+  Email as EmailIcon,
   Brightness4 as Brightness4Icon,
   Brightness7 as Brightness7Icon,
 } from "@mui/icons-material";
@@ -33,7 +34,8 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
   };
 
   const listItems = [
-    { text: "Hem", icon: <HomeIcon />, to: "/" }
+    { text: "Hem", icon: <HomeIcon />, to: "/" },
+    { text: "Felanmälan", icon: <EmailIcon />, to: "/information" }
   ];
 
   const renderListItem = ({ text, icon, to }) => (

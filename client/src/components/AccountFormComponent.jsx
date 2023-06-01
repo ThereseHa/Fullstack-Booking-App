@@ -39,7 +39,7 @@ function AccountFormComponenet(){
         console.error('Error:', error);
         }
     }
-
+    
     return (
       <form>
       <Box

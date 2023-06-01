@@ -1,10 +1,11 @@
 import { config } from 'dotenv'
 import pkg from 'pg'
-const { Client } = pkg
 
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+
+const { Client } = pkg
 
 const app = express()
 
@@ -13,11 +14,8 @@ config()
 
 // Middlewares
 app.use(bodyParser.json())
-app.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
-)
+
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(cors())
 app.use(express.json())
@@ -36,37 +34,78 @@ const client = new Client({
     user: process.env.USER
 })
 
-client.connect(function (err) {
+client.connect((err) => {
     if (err) throw err
     console.log('Database Connected')
 })
 
-//Rutterna
-app.get('/', (req, res) => {
-    res.json('Hejsan')
-})
+// Hjälpfunktion för att generera alla tider för ett givet datum
+const generateAllTimesForDate = (date) => {
+    const startTime = new Date(date).setHours(8, 0, 0) // Starttid: 08:00
+    const endTime = new Date(date).setHours(22, 0, 0) // Sluttid: 22:00
+    const allTimes = []
+    let currentTime = startTime
+    while (currentTime <= endTime) {
+        const timeString = new Date(currentTime).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        })
+        allTimes.push(timeString)
+        currentTime += 60 * 60 * 1000 // Lägg till en timme
+    }
+    return allTimes
+}
 
-app.get('/persons', async (req, res) => {
+// GET-rutt för att hämta de tillgängliga tiderna baserat på ett angivet datum
+app.get('/available-times', async (req, res) => {
+    const { date } = req.query // Hämta 'date' från förfrågningsparametrarna
+    const selectedDateTime = new Date(date)
     try {
-        const result = await client.query('SELECT * FROM users')
-        res.json(result.rows)
-    } catch (err) {
-        console.error(err)
+        const result = await client.query(
+            'SELECT * FROM bookings WHERE booking_date::date = $1::date',
+            [selectedDateTime]
+        )
+        const bookedTimes = result.rows.map((booking) => booking.booking_date)
+        const allTimes = generateAllTimesForDate(selectedDateTime)
+        const availableTimes = allTimes.filter(
+            (time) => !bookedTimes.includes(time)
+        )
+        res.json({ availableTimes, bookedTimes })
+    } catch (error) {
+        console.error(error)
         res.sendStatus(500)
     }
 })
 
-//Persons Post
-app.post('/persons', async (req, res) => {
-    const { first_name, last_name, email, password } = req.body
+// POST-rutt för att registrera bokningar
+app.post('/bookings', async (req, res) => {
+    const { dateTime } = req.body
+    const selectedDateTime = new Date(dateTime)
     try {
-        await client.query(
-            'INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)',
-            [first_name, last_name, email, password]
-        )
-        res.sendStatus(201)
-    } catch (err) {
-        console.error(err)
+        await client.query('INSERT INTO bookings (booking_date) VALUES ($1)', [
+            selectedDateTime
+        ])
+        res.sendStatus(200)
+    } catch (error) {
+        if (error.code === '23505') {
+            // Felkod för unik nyckelbegränsning
+            res.status(409).json({ error: 'Datum och tid är redan bokade.' })
+        } else {
+            console.error(error)
+            res.sendStatus(500)
+        }
+    }
+})
+
+// GET-rutt för att hämta alla bokningar
+app.get('/bookings', async (req, res) => {
+    try {
+        const result = await client.query('SELECT * FROM bookings')
+        const bookings = result.rows
+        res.json(bookings)
+    } catch (error) {
+        console.error(error)
         res.sendStatus(500)
     }
 })
@@ -88,6 +127,17 @@ app.post('/login', async (req, res) => {
         } else {
             res.sendStatus(401)
         }
+
+// DELETE-rutt för att ta bort en bokning
+app.delete('/bookings', async (req, res) => {
+    const { dateTime } = req.body
+    const selectedDateTime = new Date(dateTime)
+
+    try {
+        await client.query('DELETE FROM bookings WHERE booking_date = $1', [
+            selectedDateTime
+        ])
+        res.sendStatus(200)
     } catch (error) {
         console.error(error)
         res.sendStatus(500)
@@ -116,6 +166,21 @@ app.post('/register', async (req, res) => {
         res.sendStatus(500)
     }
 })
+
+//Post kontaktformulär 
+app.post("/contact", async (req, res) => {
+  const { message } = req.body;
+  try {
+    await client.query(
+      "INSERT INTO error_report (message) VALUES ($1)",
+      [message]
+    );
+    res.sendStatus(201);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
 
 app.listen(8800, () => {
     console.log('Server is running')
