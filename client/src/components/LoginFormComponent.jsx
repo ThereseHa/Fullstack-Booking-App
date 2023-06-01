@@ -37,23 +37,6 @@ function LoginFormComponent(){
     }
   };
 
-/*
-  const handleLogin = async (email, password) => {
-  try {
-    // Send a POST request to the login endpoint
-    const response = await axios.post('/api/login', { email, password });
-
-    // Retrieve the user ID from the response data
-    const userId = response.data.userId;
-
-    // Do something with the user ID, such as storing it in state or localStorage
-    // ...
-  } catch (error) {
-    // Handle any login errors
-    // ...
-  }
-}; */
-
     return (
         <>
         <form>
