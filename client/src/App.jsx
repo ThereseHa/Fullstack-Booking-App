@@ -2,7 +2,7 @@ import {
   createBrowserRouter,
   Route,
   createRoutesFromElements,
-  RouterProvider
+  RouterProvider,
 } from "react-router-dom";
 
 // Pages
@@ -20,23 +20,21 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-        <>
-            <Route path="/" element={<RootLayout />}>
+    <>
+      <Route path="/" element={<RootLayout />}>
+        <Route exact path="/" element={<ProtectedRoute />}>
+          {/* Protected routes */}
+          <Route exact path="/" element={<Home />} />
+          <Route path="/information" element={<InformationPage />} />
 
-                <Route exact path='/' element={<ProtectedRoute/>}>
-                    {/* Protected routes */}
-                    <Route exact path='/' element={<Home/>}/>
-                     <Route path="/information" element={<InformationPage />}/>
-                
-                    {/* Protected ends here */}
-                </Route>
+          {/* Protected ends here */}
+        </Route>
+      </Route>
 
-            </Route>
-
-                <Route exact path='/login' element={<Login/>}/>
-                <Route exact path='/register' element={<Register />}/>
-                <Route path="*" element={<NotFound />} />
-        </>
+      <Route exact path="/login" element={<Login />} />
+      <Route exact path="/register" element={<Register />} />
+      <Route path="*" element={<NotFound />} />
+    </>
   )
 );
 
