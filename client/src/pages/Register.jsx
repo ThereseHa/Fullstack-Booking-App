@@ -1,12 +1,9 @@
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import AccountFormComponent from '../components/AccountFormComponent'
 
 function Register() {
 
   return (
-    <>
-    <CssBaseline />
     <Box
         display="flex"
         justifyContent="center"
@@ -16,7 +13,6 @@ function Register() {
     >
         <AccountFormComponent />
     </Box>
-    </>
   );
 }
 
