@@ -24,7 +24,7 @@ function InformationTextComponent() {
         </Stack>
       </Box>
     </Box>
-  );  
+  );
 }
 
 export default InformationTextComponent;

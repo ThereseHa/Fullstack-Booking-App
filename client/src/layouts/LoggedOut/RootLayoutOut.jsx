@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline"
+import CssBaseline from "@mui/material/CssBaseline";
 import NavBar from "./NavBarOut";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 export default function RootLayout() {
-  const [thememode, setThememode] = useState('');
+  const [thememode, setThememode] = useState("");
 
   const lightTheme = useMemo(
     () =>
@@ -39,24 +39,24 @@ export default function RootLayout() {
     []
   );
 
-    const setThemePreference = (theme) => {
-        localStorage.setItem('theme', theme);
-        setThememode(theme);
-    };
+  const setThemePreference = (theme) => {
+    localStorage.setItem("theme", theme);
+    setThememode(theme);
+  };
 
   // Function to get the initial theme preference
   const getInitialThemePreference = () => {
-    const storedTheme = localStorage.getItem('theme');
-    return storedTheme || 'light';
+    const storedTheme = localStorage.getItem("theme");
+    return storedTheme || "light";
   };
 
-    useEffect(() => {
+  useEffect(() => {
     const initialThemePreference = getInitialThemePreference();
     setThemePreference(initialThemePreference);
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = thememode === 'light' ? 'dark' : 'light';
+    const newTheme = thememode === "light" ? "dark" : "light";
     setThemePreference(newTheme);
   };
 

@@ -27,7 +27,10 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
   const navigate = useNavigate();
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
     setState((prevState) => ({ ...prevState, [anchor]: open }));
@@ -35,7 +38,7 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
 
   const listItems = [
     { text: "Hem", icon: <HomeIcon />, to: "/" },
-    { text: "Felanmälan", icon: <EmailIcon />, to: "/information" }
+    { text: "Felanmälan", icon: <EmailIcon />, to: "/information" },
   ];
 
   const renderListItem = ({ text, icon, to }) => (
@@ -58,9 +61,9 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
     </Box>
   );
 
-    const Logout = async () => {
-        localStorage.setItem('isAuth', 'false');
-        navigate('/login');
+  const Logout = async () => {
+    localStorage.setItem("isAuth", "false");
+    navigate("/login");
   };
 
   return (
@@ -87,11 +90,21 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
           </Drawer>
 
           <Box sx={{ flexGrow: 1 }} />
-          <Button size="small" color="inherit" variant="outlined"
-          sx={{ marginRight: "1em", visibility: "visible", color: "inherit" }}
-          onClick={Logout}>Logga ut</Button>
+          <Button
+            size="small"
+            color="inherit"
+            variant="outlined"
+            sx={{ marginRight: "1em", visibility: "visible", color: "inherit" }}
+            onClick={Logout}
+          >
+            Logga ut
+          </Button>
           <IconButton color="inherit" onClick={toggleTheme}>
-            {currentTheme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+            {currentTheme === "dark" ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
           </IconButton>
         </Toolbar>
       </AppBar>
