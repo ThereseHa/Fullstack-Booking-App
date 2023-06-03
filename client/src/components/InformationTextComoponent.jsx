@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 function InformationTextComponent() {
   return (
     <Box sx={{ display: "flex", justifyContent: "center", marginTop: "3em" }}>
-      <Box sx={{ width: "300px", height: "160" }}>
+      <Box sx={{ width: "300px", height: "160px" }}>
         <Stack>
           <Typography
             variant="h6"
@@ -24,7 +24,7 @@ function InformationTextComponent() {
         </Stack>
       </Box>
     </Box>
-  );
+  );  
 }
 
 export default InformationTextComponent;

@@ -1,64 +1,66 @@
 import { useState } from "react";
 import axios from "axios";
-import { TextField, Stack, Button, Box, Typography} from "@mui/material";
+import { TextField, Stack, Button, Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-function AccountFormComponenet(){
-    //States
-    const [user, setUser] = useState({
-        FirstName: "",
-        LastName: "",
-        email: "",
-        password: ""
-    })
-    const [success, setSuccess] = useState(false)
-    const [require, setRequire] = useState(false)
-    const [error, setError] = useState(false)
+function AccountFormComponenet() {
+  //States
+  const [user, setUser] = useState({
+    FirstName: "",
+    LastName: "",
+    email: "",
+    password: "",
+  });
+  const [success, setSuccess] = useState(false);
+  const [require, setRequire] = useState(false);
+  const [error, setError] = useState(false);
 
-    //Registrera
+  //Registrera
 
-    //Tar in från input..
-    const handleChange = (e) => {
-        setUser((prev) => ({...prev, [e.target.name]: e.target.value}))
-    }
+  //Tar in från input..
+  const handleChange = (e) => {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-    //... och skapar en POST
-    const handleClick = async (e) => {
-    e.preventDefault()
+  //... och skapar en POST
+  const handleClick = async (e) => {
+    e.preventDefault();
 
     try {
-            const response = await axios.post("http://localhost:8800/register", user);
+      const response = await axios.post("http://localhost:8800/register", user);
 
-            if (response.status === 201) {
-                setSuccess(true)
-            } else if (response.status === 400) {
-                setRequire(true)
-            }
-        } catch (error) {
-        setError(true)
-        console.error('Error:', error);
-        }
+      if (response.status === 201) {
+        setSuccess(true);
+      } else if (response.status === 400) {
+        setRequire(true);
+      }
+    } catch (error) {
+      setError(true);
+      console.error("Error:", error);
     }
-    
-    return (
-      <form>
+  };
+
+  return (
+    <form>
       <Box
         sx={{
           width: 300,
           height: 500,
           border: "solid 1.6px",
-          borderRadius: "9px",boxShadow: '0px 3px 3px rgba(83, 83, 86, 0.2)',
-          textAlign: 'center'}}
+          borderRadius: "9px",
+          boxShadow: "0px 3px 3px rgba(83, 83, 86, 0.2)",
+          textAlign: "center",
+        }}
       >
         <Typography sx={{ margin: "1.3em" }} variant="h5">
           Skapa konto
         </Typography>
         <Box sx={{ marginTop: "2em", marginLeft: "1em", marginRight: "1em" }}>
           <Stack>
-              {/* Förnamn */}
+            {/* Förnamn */}
             <TextField
               size="small"
-              sx={{ marginTop: '1em' }}
+              sx={{ marginTop: "1em" }}
               id="outlined-basic1"
               label="Förnamn"
               variant="outlined"
@@ -66,7 +68,7 @@ function AccountFormComponenet(){
               name="FirstName"
               onChange={handleChange}
             />
-           {/* Efternam */}
+            {/* Efternam */}
             <TextField
               size="small"
               sx={{ marginTop: "1em" }}
@@ -77,7 +79,7 @@ function AccountFormComponenet(){
               name="LastName"
               onChange={handleChange}
             />
-           {/* Epost */}
+            {/* Epost */}
             <TextField
               size="small"
               sx={{ marginTop: "1em" }}
@@ -91,7 +93,7 @@ function AccountFormComponenet(){
             {/* Lösenord1 */}
             <TextField
               size="small"
-              sx={{ marginTop: "1em"}}
+              sx={{ marginTop: "1em" }}
               id="outlined-basic4"
               label="Lösenord"
               variant="outlined"
@@ -117,8 +119,8 @@ function AccountFormComponenet(){
           </Stack>
         </Box>
       </Box>
-      </form>
-    )
+    </form>
+  );
 }
 
 export default AccountFormComponenet;
