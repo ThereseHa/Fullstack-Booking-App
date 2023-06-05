@@ -22,8 +22,9 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
             <Grid item>
               <ThemeProvider theme={theme}>
                 {/* Responsive size */}
-                <h3>BRF BASTU</h3>
-              </ThemeProvider>
+                <Typography variant="h4">BRF BASTU</Typography>
+                </ThemeProvider>
+
             </Grid>
           </Grid>
 

@@ -15,26 +15,31 @@ import InformationPage from "./pages/InformationPage";
 // Layouts
 import RootLayout from "./layouts/RootLayout";
 
+import RootLayoutOut from "./layouts/LoggedOut/RootLayoutOut"
+
 //Component
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
-      <Route path="/" element={<RootLayout />}>
-        <Route exact path="/" element={<ProtectedRoute />}>
-          {/* Protected routes */}
-          <Route exact path="/" element={<Home />} />
-          <Route path="/information" element={<InformationPage />} />
+        <>
+            <Route path="/" element={<RootLayout />}>
 
-          {/* Protected ends here */}
-        </Route>
-      </Route>
+                <Route exact path='/' element={<ProtectedRoute/>}>
+                    {/* Protected routes */}
+                    <Route exact path='/' element={<Home/>}/>
+                     <Route path="/information" element={<InformationPage />}/>
 
-      <Route exact path="/login" element={<Login />} />
-      <Route exact path="/register" element={<Register />} />
-      <Route path="*" element={<NotFound />} />
-    </>
+                    {/* Protected ends here */}
+                </Route>
+
+            </Route>
+            <Route element={<RootLayoutOut />}>
+                <Route exact path='/login' element={<Login/>}/>
+                <Route exact path='/register' element={<Register />}/>
+                <Route path="*" element={<NotFound />} />
+            </Route>
+        </>
   )
 );
 
