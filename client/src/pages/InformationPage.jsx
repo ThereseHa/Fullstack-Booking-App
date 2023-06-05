@@ -4,10 +4,10 @@ import InformationTextComponent from "../components/InformationTextComoponent";
 
 function InformationPage() {
   return (
-    <>
-      <Box sx={{ textAlign: "center" }}>
+   
+      <Box p={2} sx={{ textAlign: "center" }}>
         <Box sx={{ justifyContent: "center" }}>
-          <h1>Felanmälan</h1>
+        <Typography variant="h4">Felanmälan</Typography>
           <InformationTextComponent />
           <ContactFormComponent />
           <Stack>
@@ -26,7 +26,6 @@ function InformationPage() {
           </Stack>
         </Box>
       </Box>
-    </>
   );
 }
 
