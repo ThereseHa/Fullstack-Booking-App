@@ -39,7 +39,7 @@ function LoginFormComponent() {
       console.error("Error:", error);
     }
   };
-  
+
     return (
         <>
         <form>
@@ -86,6 +86,7 @@ function LoginFormComponent() {
               Logga in
             </Button>
           </Stack>
+        </Box>
         </Box>
       </form>
     </>
