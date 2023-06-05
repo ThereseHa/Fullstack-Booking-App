@@ -1,4 +1,4 @@
-import { Box, AppBar, IconButton, Toolbar, Grid } from "@mui/material";
+import { Box, AppBar, IconButton, Toolbar, Typography, Grid } from "@mui/material";
 import {
   Brightness4 as Brightness4Icon,
   Brightness7 as Brightness7Icon,
@@ -6,7 +6,6 @@ import {
 import {
   createTheme,
   responsiveFontSizes,
-  Typography,
   ThemeProvider,
 } from "@mui/material/styles";
 
