@@ -25,6 +25,9 @@ export default function RootLayout() {
       createTheme({
         palette: {
           mode: "light",
+            primary: {
+                main: "#2a9461"
+        }
         },
       }),
     []
