@@ -1,7 +1,9 @@
 import { TextField, Stack, Button, Box, Typography } from "@mui/material";
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import Link from '@mui/material/Link';
 
 function LoginFormComponent(){
     const [email, setEmail] = useState('');
@@ -15,15 +17,13 @@ function LoginFormComponent(){
 
       if (response.status === 200) {
 
-        //Gets user ID from response data
         const userIdRes = response.data.userId;
-        //Saves it in localStorage
          localStorage.setItem('userId', userIdRes)
 
-        //Get the stored user id from localStorage
-        //  localStorage.getItem('userId')
+        //Få users id från localStorage
         const userID = localStorage.getItem('userId')
         console.log(userID)
+        //
 
         // Login successful, navigate to home page
         localStorage.setItem('isAuth', 'true');
@@ -43,7 +43,7 @@ function LoginFormComponent(){
       <Box
         sx={{
           width: 300,
-          height: 400,
+          height: 350,
           border: "solid 1.6px",
           borderRadius: "9px",boxShadow: '0px 3px 3px rgba(83, 83, 86, 0.2)',
           textAlign: 'center'}}
@@ -51,7 +51,7 @@ function LoginFormComponent(){
         <Typography sx={{ margin: "1.3em" }} variant="h5">
           Logga in
         </Typography>
-        <Box sx={{ marginTop: "4em", marginLeft: "1em", marginRight: "1em" }}>
+        <Box sx={{ marginTop: "3 em", marginLeft: "1em", marginRight: "1em" }}>
           <Stack>
             <TextField
               size="small"
@@ -75,7 +75,7 @@ function LoginFormComponent(){
         onChange={(e) => setPassword(e.target.value)}
             />
             <Typography sx={{ marginTop: "1em" }}>
-               <Link to="/register">Registrera konto</Link>
+            <Link to="/register" component={RouterLink}>Registrera konto</Link>
             </Typography>
             <Button
               sx={{ marginTop: "2em", marginLeft: "3em", marginRight: "3em" }}

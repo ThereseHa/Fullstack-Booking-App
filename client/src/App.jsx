@@ -15,6 +15,8 @@ import InformationPage from "./pages/InformationPage";
 // Layouts
 import RootLayout from "./layouts/RootLayout";
 
+import RootLayoutOut from "./layouts/LoggedOut/RootLayoutOut"
+
 //Component
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -27,15 +29,16 @@ const router = createBrowserRouter(
                     {/* Protected routes */}
                     <Route exact path='/' element={<Home/>}/>
                      <Route path="/information" element={<InformationPage />}/>
-                
+
                     {/* Protected ends here */}
                 </Route>
 
             </Route>
-
+            <Route element={<RootLayoutOut />}>
                 <Route exact path='/login' element={<Login/>}/>
                 <Route exact path='/register' element={<Register />}/>
                 <Route path="*" element={<NotFound />} />
+            </Route>
         </>
   )
 );

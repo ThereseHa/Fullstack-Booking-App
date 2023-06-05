@@ -8,6 +8,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
   AppBar,
   Button,
   IconButton,
@@ -77,7 +78,7 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
           >
             <MenuIcon />
           </IconButton>
-          <h3>BRF BASTU</h3>
+          <Typography variant="h5">BRF BASTU</Typography>
           <Drawer
             anchor="left"
             open={state.left}
