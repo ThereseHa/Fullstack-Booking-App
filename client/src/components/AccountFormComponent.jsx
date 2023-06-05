@@ -44,19 +44,19 @@ function AccountFormComponenet(){
 
     const navigate = useNavigate()
 
-    //Registrera
+  //Registrera
 
-    //Tar in från input..
-    const handleChange = (e) => {
-        setUser((prev) => ({...prev, [e.target.name]: e.target.value}))
-    }
+  //Tar in från input..
+  const handleChange = (e) => {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-    //... och skapar en POST
-    const handleClick = async (e) => {
-    e.preventDefault()
+  //... och skapar en POST
+  const handleClick = async (e) => {
+    e.preventDefault();
 
     try {
-            const response = await axios.post("http://localhost:8800/register", user);
+      const response = await axios.post("http://localhost:8800/register", user);
 
             if (response.status === 201) {
                 setAlertType("success");
@@ -81,15 +81,17 @@ function AccountFormComponenet(){
           width: 300,
           height: success || require ? 550 : 500,
           border: "solid 1.6px",
-          borderRadius: "9px",boxShadow: '0px 3px 3px rgba(83, 83, 86, 0.2)',
-          textAlign: 'center'}}
+          borderRadius: "9px",
+          boxShadow: "0px 3px 3px rgba(83, 83, 86, 0.2)",
+          textAlign: "center",
+        }}
       >
         <Typography sx={{ margin: "1.3em" }} variant="h5">
           Skapa konto
         </Typography>
         <Box sx={{  marginLeft: "1em", marginRight: "1em" }}>
           <Stack>
-              {/* Förnamn */}
+            {/* Förnamn */}
             <TextField
               size="small"
               id="outlined-basic1"
@@ -99,7 +101,7 @@ function AccountFormComponenet(){
               name="FirstName"
               onChange={handleChange}
             />
-           {/* Efternam */}
+            {/* Efternam */}
             <TextField
               size="small"
               sx={{ marginTop: "1em" }}
@@ -110,7 +112,7 @@ function AccountFormComponenet(){
               name="LastName"
               onChange={handleChange}
             />
-           {/* Epost */}
+            {/* Epost */}
             <TextField
               size="small"
               sx={{ marginTop: "1em" }}
@@ -124,7 +126,7 @@ function AccountFormComponenet(){
             {/* Lösenord1 */}
             <TextField
               size="small"
-              sx={{ marginTop: "1em"}}
+              sx={{ marginTop: "1em" }}
               id="outlined-basic4"
               label="Lösenord"
               variant="outlined"
@@ -157,8 +159,8 @@ function AccountFormComponenet(){
           </Stack>
         </Box>
       </Box>
-      </form>
-    )
+    </form>
+  );
 }
 
 export default AccountFormComponenet;

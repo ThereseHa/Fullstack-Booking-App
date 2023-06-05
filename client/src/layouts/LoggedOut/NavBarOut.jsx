@@ -1,11 +1,4 @@
-import {
-  Box,
-  AppBar,
-  IconButton,
-  Toolbar,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { Box, AppBar, IconButton, Toolbar, Grid } from "@mui/material";
 import {
   Brightness4 as Brightness4Icon,
   Brightness7 as Brightness7Icon,
@@ -14,23 +7,20 @@ import {
   createTheme,
   responsiveFontSizes,
   ThemeProvider,
-} from '@mui/material/styles';
+} from "@mui/material/styles";
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
 // eslint-disable-next-line react/prop-types
 const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-
-        <Grid container justifyContent="center">
+          <Grid container justifyContent="center">
             <Grid item>
-
-                <ThemeProvider theme={theme}>
+              <ThemeProvider theme={theme}>
                 {/* Responsive size */}
                 <Typography variant="h4">BRF BASTU</Typography>
                 </ThemeProvider>
@@ -40,7 +30,11 @@ const TemporaryDrawer = ({ toggleTheme, currentTheme }) => {
 
           <Box sx={{ flexGrow: 1 }} />
           <IconButton color="inherit" onClick={toggleTheme}>
-            {currentTheme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+            {currentTheme === "dark" ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
           </IconButton>
         </Toolbar>
       </AppBar>

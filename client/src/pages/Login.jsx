@@ -7,7 +7,9 @@ function Login() {
     const isDarkMode = theme.palette.mode === 'dark';
 
   return (
-    <Box
+    <>
+      <CssBaseline />
+      <Box
         display="flex"
         justifyContent="center"
         flexDirection="column"
@@ -22,7 +24,8 @@ function Login() {
       )}
         </Box>
         <LoginFormComponent />
-    </Box>
+      </Box>
+    </>
   );
 }
 

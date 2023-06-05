@@ -5,15 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import Link from '@mui/material/Link';
 
-function LoginFormComponent(){
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+function LoginFormComponent() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    //login
-    const handleLogin = async () => {
+  //login
+  const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8800/login', { email, password });
+      const response = await axios.post("http://localhost:8800/login", {
+        email,
+        password,
+      });
 
       if (response.status === 200) {
 
@@ -26,17 +29,17 @@ function LoginFormComponent(){
         //
 
         // Login successful, navigate to home page
-        localStorage.setItem('isAuth', 'true');
-        console.log('logged in')
-        navigate('/');
+        localStorage.setItem("isAuth", "true");
+        console.log("logged in");
+        navigate("/");
       } else {
-        console.error('Login failed');
+        console.error("Login failed");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-
+  
     return (
         <>
         <form>
@@ -84,10 +87,9 @@ function LoginFormComponent(){
             </Button>
           </Stack>
         </Box>
-      </Box>
       </form>
     </>
-    )
+  );
 }
 
 export default LoginFormComponent;

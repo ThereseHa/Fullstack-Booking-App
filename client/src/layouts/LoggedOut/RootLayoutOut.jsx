@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 export default function RootLayout() {
-  const [thememode, setThememode] = useState('');
+  const [thememode, setThememode] = useState("");
 
   const lightTheme = useMemo(
     () =>
@@ -45,24 +45,24 @@ export default function RootLayout() {
     []
   );
 
-    const setThemePreference = (theme) => {
-        localStorage.setItem('theme', theme);
-        setThememode(theme);
-    };
+  const setThemePreference = (theme) => {
+    localStorage.setItem("theme", theme);
+    setThememode(theme);
+  };
 
   // Function to get the initial theme preference
   const getInitialThemePreference = () => {
-    const storedTheme = localStorage.getItem('theme');
-    return storedTheme || 'light';
+    const storedTheme = localStorage.getItem("theme");
+    return storedTheme || "light";
   };
 
-    useEffect(() => {
+  useEffect(() => {
     const initialThemePreference = getInitialThemePreference();
     setThemePreference(initialThemePreference);
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = thememode === 'light' ? 'dark' : 'light';
+    const newTheme = thememode === "light" ? "dark" : "light";
     setThemePreference(newTheme);
   };
 

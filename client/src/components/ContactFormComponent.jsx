@@ -67,9 +67,7 @@ function ContactFormComponent() {
                 Skicka
               </Button>
             </Stack>
-            <Typography sx={{ marginTop: "2em" }}>
-              {success && <Typography>Ditt meddelande har skickats</Typography>}
-            </Typography>
+            {success && <Typography>Ditt meddelande har skickats</Typography>}
           </Box>
         </Box>
       </form>
