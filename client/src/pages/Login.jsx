@@ -8,7 +8,6 @@ function Login() {
 
   return (
     <>
-      <CssBaseline />
       <Box
         display="flex"
         justifyContent="center"

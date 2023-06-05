@@ -6,6 +6,7 @@ import {
 import {
   createTheme,
   responsiveFontSizes,
+  Typography,
   ThemeProvider,
 } from "@mui/material/styles";
 
